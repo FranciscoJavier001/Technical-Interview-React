@@ -15,12 +15,14 @@ function App() {
 
   useEffect(() => {
     getPeople(page)
-      .then(setPeople(setPeople))
+      .then(setPeople)
       .catch(handleError)
   }, [page])
 
   useEffect(() => {
-    getCharacter(currentCharacter).then(setDetails).catch(handleError)
+    getCharacter(currentCharacter)
+      .then(setDetails)
+      .catch(handleError)
   }, [currentCharacter])
 
   const handleError = (err) => {
@@ -50,7 +52,7 @@ function App() {
 
   const onChangePage = (next) => {
     if(!people.previous && page + next <= 0) return
-    if(![people.next && page + next >= 9]) return
+    if(!people.next && page + next >= 9) return
 
     setPage(page + next)
   }
@@ -67,7 +69,7 @@ function App() {
     <ul>
       {/* {data.results.map(character => ( */}
       {errorState.hasError && <div>{errorState.message}</div>}
-      {people?.results?.map(character => (
+      {people?.results?.map((character) => (
           <li key={character.name} onClick={() => showDetails(character)}>
             {character.name}
           </li>
